@@ -56,7 +56,7 @@ app.post('/api/start', async (req, res) => {
 
 app.post('/api/reset/:sessionId', async (req, res) => {
     const { sessionId } = req.params;
-    if (sessions[sessionId]) { try { sessions[sessionId].sock.end(); } catch {} delete sessions[sessionId]; }
+    if (sessions[sessionId]) { try { sessions[sessionId].sock.logout(); } catch {} delete sessions[sessionId]; }
     await clearSessionCreds(sessionId);
     await startSock(sessionId);
     res.send({ ok: true });
